@@ -5,17 +5,23 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/**
+ * Интерфес репозитория списка контактов
+ * @author N.S.Kolesnik
+ * @version 1.0
+ */
 public interface HumanContactRepo extends JpaRepository<HumanContact, Long> {
-    HumanContact findById(String id);
-    List<HumanContact> findByFirstNameOrderByFirstName();
-    List<HumanContact> findByLastNameOrderByLastName();
-    List<HumanContact> findByMidlNameOrderByMidlName();
+    /** Поиск по id */
+    HumanContact getById(Long id);
+    /** Поиск по дате рождения */
     List<HumanContact> findByDateOfBirthOrderByDateOfBirth (String dateOfBirth);
+    /** Поиск по ФИО */
     List<HumanContact> findByFirstNameAndLastNameAndMidlNameOrderByFirstName(
             String firstName,
             String lastName,
             String midlName);
-    List<HumanContact> findByFirstNameAndLastNameAndLastNameAndDateOfBirthOrderByFirstName(
+    /** Поиск по ФИО и дате рождения */
+    List<HumanContact> findByFirstNameAndLastNameAndMidlNameAndDateOfBirthOrderByFirstName(
             String firstName,
             String lastName,
             String midlName,

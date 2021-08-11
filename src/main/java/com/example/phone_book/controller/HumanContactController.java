@@ -3,71 +3,76 @@ package com.example.phone_book.controller;
 import com.example.phone_book.domain.HumanContact;
 import com.example.phone_book.domain.PhoneNumber;
 import com.example.phone_book.service.HumanContactService;
-import com.example.phone_book.service.PhoneContactService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Map;
 
+/**
+ * Контроллер отвечающий за работу с контактами
+ * @author N.S.Kolesnik
+ * @version 1.0
+ */
 @Controller
-    public class HumanContactController {
+public class HumanContactController {
     private final HumanContactService humanContactService;
-    private final PhoneContactService phoneContactService;
 
-
+    @Autowired
     public HumanContactController(
-            HumanContactService humanContactService,
-            PhoneContactService phoneContactService) {
+            HumanContactService humanContactService) {
         this.humanContactService = humanContactService;
-        this.phoneContactService = phoneContactService;
     }
-
+    /** Контроллер вывода всех контактов */
     @GetMapping("/getAll")
     public List<HumanContact> getAll() {
         return humanContactService.getAll();
     }
 
+    /** Контроллер добавления контакта */
     @PostMapping("/add")
     public List<HumanContact> add(String firstName,
-                      String lastName,
-                      String midlName,
-                      String dateOfBirth,
-                      List<PhoneNumber> numbers) {
-        return humanContactService.addHumanContact(firstName, lastName, midlName, dateOfBirth, numbers);
-    }
-
-    @PostMapping("/edit")
-    public List<HumanContact> edit(String id,
-                                  String firstName,
                                   String lastName,
                                   String midlName,
                                   String dateOfBirth,
                                   List<PhoneNumber> numbers) {
-        return humanContactService.editHumanContact(id, firstName, lastName, midlName, dateOfBirth, numbers);
+        return humanContactService.addHumanContact(firstName, lastName, midlName, dateOfBirth, numbers);
     }
 
+    /** Контроллер изменения контакта */
+    @PostMapping("/edit")
+    public List<HumanContact> edit(Long id,
+                                   String firstName,
+                                   String lastName,
+                                   String midlName,
+                                   String dateOfBirth,
+                                   List<PhoneNumber> numbers) {
+    return humanContactService.editHumanContact(id, firstName, lastName, midlName, dateOfBirth, numbers);
+    }
+
+    /** Контроллер вывода по ФИО */
     @PostMapping("/filterFIO")
     public List<HumanContact> findByFirstNameAndLastNameAndMidlNameOrderByFirstName(
             String firstName,
             String lastName,
-            String midlName){
+            String midlName) {
         return humanContactService.findByFirstNameAndLastNameAndMidlNameOrderByFirstName(firstName, lastName, midlName);
     }
 
-    @PostMapping("/filterFIO&Name")
-    public List<HumanContact> findByFirstNameAndLastNameAndLastNameAndDateOfBirthOrderByFirstName(
+    /** Контроллер вывода по ФИО и дате рождения */
+    @PostMapping("/filterFIO&DateOfBirth")
+    public List<HumanContact> findByFirstNameAndLastNameAndMidlNameAndDateOfBirthOrderByFirstName(
             String firstName,
             String lastName,
             String midlName,
             String dateOfBirth) {
-        return humanContactService.findByFirstNameAndLastNameAndLastNameAndDateOfBirthOrderByFirstName(firstName, lastName, midlName, dateOfBirth);
+        return humanContactService.findByFirstNameAndLastNameAndMidlNameAndDateOfBirthOrderByFirstName(firstName, lastName, midlName, dateOfBirth);
     }
 
+    /** Контроллер вывода по дате рождения */
     @PostMapping("/filterDateOfBirth")
-    public List<HumanContact> findByDateOfBirthOrderByDateOfBirth(String dateOfBirth){
+    public List<HumanContact> findByDateOfBirthOrderByDateOfBirth(String dateOfBirth) {
         return humanContactService.findByDateOfBirthOrderByDateOfBirth(dateOfBirth);
     }
 }

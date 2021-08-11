@@ -5,38 +5,42 @@ import com.example.phone_book.domain.PhoneNumber;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
+/**
+ * Интерфес сервиса, отвечающего за обработку списка контактов
+ * @author N.S.Kolesnik
+ * @version 1.0
+ */
 @Service
 public interface HumanContactService {
 
-
+    /** Вывод всех контактов */
     List<HumanContact> getAll();
-
+    /** Добавление нового контакта */
     List<HumanContact> addHumanContact(
             String firstName,
             String lastName,
             String midlName,
             String dateOfBirth,
             List<PhoneNumber> numbers);
-
+    /** Изменение контакта */
     List<HumanContact> editHumanContact(
-            String Id,
+            Long Id,
             String firstName,
             String lastName,
             String midlName,
             String dateOfBirth,
             List<PhoneNumber> numbers);
-
+    /** Поиск контакта по ФИО */
     List<HumanContact> findByFirstNameAndLastNameAndMidlNameOrderByFirstName(
             String firstName,
             String lastName,
             String midlName);
-
+    /** Поиск контакта по дате рождения */
     List<HumanContact> findByDateOfBirthOrderByDateOfBirth(
             String dateOfBirth);
-
-    List<HumanContact> findByFirstNameAndLastNameAndLastNameAndDateOfBirthOrderByFirstName(
+    /** Поиск контакта по ФИО и дате рождения*/
+    List<HumanContact> findByFirstNameAndLastNameAndMidlNameAndDateOfBirthOrderByFirstName(
             String firstName,
             String lastName,
             String midlName,

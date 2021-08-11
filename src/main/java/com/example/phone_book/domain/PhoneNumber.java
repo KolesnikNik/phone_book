@@ -2,6 +2,11 @@ package com.example.phone_book.domain;
 
 import javax.persistence.*;
 
+/**
+ * Модель телефонов
+ * @author N.S.Kolesnik
+ * @version 1.0
+ */
 @Entity
 @Table(name = "numbers")
 public class PhoneNumber {

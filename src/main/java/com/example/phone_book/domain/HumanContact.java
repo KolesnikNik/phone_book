@@ -3,6 +3,11 @@ package com.example.phone_book.domain;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Модель контактов
+ * @author N.S.Kolesnik
+ * @version 1.0
+ */
 @Entity
 @Table(name = "humans")
 public class HumanContact {
@@ -13,6 +18,7 @@ public class HumanContact {
     private String firstName;
     @Column(name = "lastName", nullable = false)
     private String lastName;
+    @Column(name = "midlName", nullable = false)
     private String midlName;
 
     public HumanContact(String firstName, String lastName, String midlName, String dateOfBirth, List<PhoneNumber> number) {
@@ -25,6 +31,7 @@ public class HumanContact {
 
     private String dateOfBirth;
 
+    /** Отношение один ко многим */
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "number_id")
     private List<PhoneNumber> number;

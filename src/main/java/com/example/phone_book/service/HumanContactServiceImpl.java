@@ -4,17 +4,25 @@ import com.example.phone_book.domain.HumanContact;
 import com.example.phone_book.domain.PhoneNumber;
 import com.example.phone_book.repos.HumanContactRepo;
 import com.example.phone_book.repos.PhoneNumberRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * Сервис, отвечающий за обработку списка контактов
+ * @author N.S.Kolesnik
+ * @version 1.0
+ */
 @Service
 public class HumanContactServiceImpl implements HumanContactService {
+
     private final HumanContactRepo humanContactRepo;
     private final PhoneNumberRepo phoneNumberRepo;
 
     List<HumanContact> humans;
 
+
+    @Autowired
     public HumanContactServiceImpl(
             HumanContactRepo humanContactRepo,
             PhoneNumberRepo phoneNumberRepo) {
@@ -22,13 +30,13 @@ public class HumanContactServiceImpl implements HumanContactService {
         this.phoneNumberRepo = phoneNumberRepo;
     }
 
-
+    /** Вывод всех контактов */
     @Override
     public List<HumanContact> getAll() {
         humans = humanContactRepo.findAll();
         return humans;
     }
-
+    /** Добавление нового контакта */
     @Override
     public List<HumanContact> addHumanContact(
             String firstName,
@@ -36,29 +44,29 @@ public class HumanContactServiceImpl implements HumanContactService {
             String midlName,
             String dateOfBirth,
             List<PhoneNumber> numbers) {
-            HumanContact human = new HumanContact(firstName, lastName, midlName, dateOfBirth, numbers);
-            humanContactRepo.save(human);
-            humans = humanContactRepo.findAll();
-            return humans;
+        HumanContact human = new HumanContact(firstName, lastName, midlName, dateOfBirth, numbers);
+        humanContactRepo.save(human);
+        humans = humanContactRepo.findAll();
+        return humans;
     }
-
+    /** Изменение контакта */
     @Override
     public List<HumanContact> editHumanContact(
-            String id,
+            Long id,
             String firstName,
             String lastName,
             String midlName,
             String dateOfBirth,
             List<PhoneNumber> numbers) {
-        if (id != null) {
-            HumanContact human = humanContactRepo.findById(id);
+        HumanContact human;
+        if (humanContactRepo.getById(id) == null) {
             human = new HumanContact(firstName, lastName, midlName, dateOfBirth, numbers);
             humanContactRepo.save(human);
         }
         humans = humanContactRepo.findAll();
         return humans;
     }
-
+    /** Поиск контакта по ФИО */
     @Override
     public List<HumanContact> findByFirstNameAndLastNameAndMidlNameOrderByFirstName(
             String firstName,
@@ -74,7 +82,7 @@ public class HumanContactServiceImpl implements HumanContactService {
         }
         return humans;
     }
-
+    /** Поиск контакта по дате рождения */
     @Override
     public List<HumanContact> findByDateOfBirthOrderByDateOfBirth(
             String dateOfBirth) {
@@ -85,26 +93,26 @@ public class HumanContactServiceImpl implements HumanContactService {
         }
         return humans;
     }
-
+    /** Поиск контакта по ФИО и дате рождения*/
     @Override
-    public List<HumanContact> findByFirstNameAndLastNameAndLastNameAndDateOfBirthOrderByFirstName(
+    public List<HumanContact> findByFirstNameAndLastNameAndMidlNameAndDateOfBirthOrderByFirstName(
             String firstName,
             String lastName,
             String midlName,
             String dateOfBirth) {
         if (firstName != null && !firstName.isEmpty()
-            && lastName != null && !lastName.isEmpty()
-            && midlName != null && !midlName.isEmpty()
-            && dateOfBirth != null && !dateOfBirth.isEmpty()) {
+                && lastName != null && !lastName.isEmpty()
+                && midlName != null && !midlName.isEmpty()
+                && dateOfBirth != null && !dateOfBirth.isEmpty()) {
 
-        humans = humanContactRepo.findByFirstNameAndLastNameAndLastNameAndDateOfBirthOrderByFirstName(
-                firstName,
-                lastName,
-                midlName,
-                dateOfBirth);
-    } else {
-        humans = humanContactRepo.findAll();
-    }
+            humans = humanContactRepo.findByFirstNameAndLastNameAndMidlNameAndDateOfBirthOrderByFirstName(
+                    firstName,
+                    lastName,
+                    midlName,
+                    dateOfBirth);
+        } else {
+            humans = humanContactRepo.findAll();
+        }
         return humans;
     }
 
