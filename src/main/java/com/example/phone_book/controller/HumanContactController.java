@@ -32,7 +32,7 @@ public class HumanContactController {
      */
     @GetMapping("/getAll")
     public List<HumanContact> getAllByPointsBetween(Integer lowerlimit,Integer upperlimit) {
-        return humanContactService.getAllByPointsBetween(lowerlimit,upperlimit);
+        return humanContactService.getAllByPointsBetweenSer(lowerlimit,upperlimit);
     }
 
     /** Контроллер добавления контакта */

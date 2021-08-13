@@ -16,7 +16,7 @@ public interface HumanContactService {
 
     HumanContact getById(Long id );
     /** Вывод всех контактов постранично*/
-    List<HumanContact> getAllByPointsBetween(Integer lowerlimit,Integer upperlimit);
+    List<HumanContact> getAllByPointsBetweenSer(Integer lowerlimit,Integer upperlimit);
     /** Добавление нового контакта */
     List<HumanContact> addHumanContact(
             String firstName,

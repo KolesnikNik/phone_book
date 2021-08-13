@@ -38,8 +38,8 @@ public class HumanContactServiceImpl implements HumanContactService {
 
     /** Вывод всех контактов постранично */
     @Override
-    public List<HumanContact> getAllByPointsBetween(Integer lowerlimit,Integer upperlimit) {
-        humans = humanContactRepo.findAll();
+    public List<HumanContact> getAllByPointsBetweenSer(Integer lowerlimit,Integer upperlimit) {
+        humans = humanContactRepo.getAllByPointsBetween(lowerlimit, upperlimit);
         return humans;
     }
     /** Добавление нового контакта */
