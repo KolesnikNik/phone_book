@@ -30,9 +30,15 @@ public class HumanContactServiceImpl implements HumanContactService {
         this.phoneNumberRepo = phoneNumberRepo;
     }
 
-    /** Вывод всех контактов */
     @Override
-    public List<HumanContact> getAll() {
+    public HumanContact getById(Long id) {
+        HumanContact human = humanContactRepo.getById(id);
+        return human;
+    }
+
+    /** Вывод всех контактов постранично */
+    @Override
+    public List<HumanContact> getAllByPointsBetween(Integer lowerlimit,Integer upperlimit) {
         humans = humanContactRepo.findAll();
         return humans;
     }

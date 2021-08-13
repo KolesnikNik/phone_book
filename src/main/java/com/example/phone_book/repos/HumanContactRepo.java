@@ -2,6 +2,8 @@ package com.example.phone_book.repos;
 
 import com.example.phone_book.domain.HumanContact;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -11,6 +13,8 @@ import java.util.List;
  * @version 1.0
  */
 public interface HumanContactRepo extends JpaRepository<HumanContact, Long> {
+
+    List<HumanContact> getAllByPointsBetween(Integer lowerlimit,Integer upperlimit);
     /** Поиск по id */
     HumanContact getById(Long id);
     /** Поиск по дате рождения */

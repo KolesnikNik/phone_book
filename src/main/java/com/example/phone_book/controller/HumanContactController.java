@@ -24,10 +24,15 @@ public class HumanContactController {
             HumanContactService humanContactService) {
         this.humanContactService = humanContactService;
     }
-    /** Контроллер вывода всех контактов */
+    /**
+     * Контроллер вывода всех контактов
+     * @param lowerlimit - начальный диапазон соответствует upperlimit+1 предыдущей страницы,
+     * для первой страницы это 0;
+     * @param upperlimit - конечный диапазон диапазон соответствует lowerlimit + 100.
+     */
     @GetMapping("/getAll")
-    public List<HumanContact> getAll() {
-        return humanContactService.getAll();
+    public List<HumanContact> getAllByPointsBetween(Integer lowerlimit,Integer upperlimit) {
+        return humanContactService.getAllByPointsBetween(lowerlimit,upperlimit);
     }
 
     /** Контроллер добавления контакта */

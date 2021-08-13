@@ -14,8 +14,9 @@ import java.util.List;
 @Service
 public interface HumanContactService {
 
-    /** Вывод всех контактов */
-    List<HumanContact> getAll();
+    HumanContact getById(Long id );
+    /** Вывод всех контактов постранично*/
+    List<HumanContact> getAllByPointsBetween(Integer lowerlimit,Integer upperlimit);
     /** Добавление нового контакта */
     List<HumanContact> addHumanContact(
             String firstName,
