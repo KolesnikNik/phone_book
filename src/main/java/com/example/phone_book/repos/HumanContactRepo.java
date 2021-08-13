@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface HumanContactRepo extends JpaRepository<HumanContact, Long> {
 
+    /** Вывод всех пользователей постранично */
     List<HumanContact> getAllByPointsBetween(Integer lowerlimit,Integer upperlimit);
     /** Поиск по id */
     HumanContact getById(Long id);
